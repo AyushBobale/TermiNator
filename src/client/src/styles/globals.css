@@ -1,0 +1,31 @@
+@import url("https://fonts.googleapis.com/css2?family=VT323&display=swap");
+
+:root {
+  --primary: #ffad29;
+  --primary-glow: #ffd086;
+  --primary-bg: #0b0702;
+  --primary-size: 35px;
+
+  /* glow */
+  --base-shadow-size: 55px;
+
+  --txt-glow-1: rgba(255, 173, 41, 1);
+  --txt-glow-2: rgba(255, 173, 41, 0.8);
+  --txt-glow-3: rgba(255, 173, 41, 0.6);
+}
+
+* {
+  font-family: "VT323", monospace;
+  font-size: var(--primary-size);
+  line-height: 70px;
+  color: var(--primary);
+  /* background: var(--primary-bg); */
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+
+  text-shadow: 0 0 calc(var(--base-shadow-size) * 1) var(--txt-glow-1),
+    0 0 calc(var(--base-shadow-size) * 2) var(--txt-glow-2);
+  /* 0 0 calc(var(--base-shadow-size) * 3) var(--txt-glow-2); */
+  /* background: rgb(182, 34, 58); */
+}
