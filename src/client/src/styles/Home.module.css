@@ -2,39 +2,22 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 100vh;
+  min-height: 100vh;
   width: 100%;
   padding: 2rem;
   background: linear-gradient(to right, var(--primary-bg), var(--primary-bg)),
     url(https://grainy-gradients.vercel.app/noise.svg);
-  filter: contrast(100%) brightness(140%);
+  /* filter: contrast(100%) brightness(130%); */
 }
 
-/* 
-
---txt-glow-1: rgba(255, 173, 41, 1);
-  --txt-glow-2: rgba(255, 173, 41, 0.8);
-  --txt-glow-3: rgba(255, 173, 41, 0.6);
-  --txt-glow-4: rgba(255, 173, 41, 0.4);
-  --txt-glow-5: rgba(255, 173, 41, 0.2);
-
-
-0 0 48px var(--txt-glow-1), 0 0 54px var(--txt-glow-2),
-    0 0 60px var(--txt-glow3), 0 0 66px var(--txt-glow-4),
-    0 0 72px var(--txt-glow-5)
-
-*/
 .console {
-  border: 1px solid black;
   padding: 2rem;
-  /* animation: blink 0.1s steps(1) infinite; */
 }
 
 .consoleHeader {
 }
 
 .consoleBody {
-  /* animation: blink 0.1s steps(1) infinite; */
 }
 
 .blink {
