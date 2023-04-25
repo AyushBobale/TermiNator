@@ -1,4 +1,5 @@
 import Head from "next/head";
+import Script from "next/script";
 import styles from "@/styles/Home.module.css";
 
 export default function Home() {
@@ -6,7 +7,9 @@ export default function Home() {
     <>
       <Head>
         <title>TermINator</title>
+        <Script src="/scripts/vcr.js" />
       </Head>
+      <div id="screen"></div>
       <div className={`${styles.container} ${""}`}>
         <div className={styles.console}>
           <div className={styles.consoleHeader}>Header</div>
