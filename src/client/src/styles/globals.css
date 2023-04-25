@@ -29,9 +29,6 @@
   --primary-bg-rgba: rgba(21, 27, 14, 0.98);
   --txt-glow-1: rgba(217, 253, 136, 0.8);
   --txt-glow-2: rgba(217, 253, 136, 0.6); */
-  /* --txt-glow-3: rgba(255, 157, 0, 0.4);
-  --txt-glow-4: rgba(255, 157, 0, 0.3);
-  --txt-glow-5: rgba(255, 157, 0, 0.1); */
 }
 
 * {
@@ -45,19 +42,15 @@
 
 * {
   line-height: 70px;
-  text-shadow: 0 0 calc(var(--base-shadow-size) * 1) var(--txt-glow-1), 0 0 calc(var(--base-shadow-size) * 5) var(--txt-glow-2);
-  /* 0 0 calc(var(--base-shadow-size) * 4) var(--txt-glow-3),
-    0 0 calc(var(--base-shadow-size) * 8) var(--txt-glow-4),
-    0 0 calc(var(--base-shadow-size) * 10) var(--txt-glow-5); */
+  text-shadow: 0 0 calc(var(--base-shadow-size) * 1) var(--txt-glow-1),
+    0 0 calc(var(--base-shadow-size) * 5) var(--txt-glow-2);
 }
 
 body {
   margin: 0;
-  width: 100vw;
-  height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
   overflow: hidden;
   background-color: #000;
-}/*# sourceMappingURL=globals.css.map */
+}

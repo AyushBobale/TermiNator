@@ -9,7 +9,6 @@ export default function Home() {
         <title>TermINator</title>
         <Script src="/scripts/vcr.js" />
       </Head>
-      <div id="screen"></div>
       <div className={`${styles.container} ${""}`}>
         <div className={styles.console}>
           {/* <div className={styles.consoleHeader}>Header</div> */}
@@ -24,8 +23,6 @@ export default function Home() {
             <p>--author with -l, print the author of each file </p>
             <p>-b, --escape print C-style escapes for nongraphic characters</p>
           </div>
-
-          <div id={styles.screen}></div>
         </div>
       </div>
     </>
