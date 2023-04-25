@@ -19,13 +19,25 @@
   font-size: var(--primary-size);
   line-height: 70px;
   color: var(--primary);
-  /* background: var(--primary-bg); */
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 
   text-shadow: 0 0 calc(var(--base-shadow-size) * 1) var(--txt-glow-1),
     0 0 calc(var(--base-shadow-size) * 2) var(--txt-glow-2);
-  /* 0 0 calc(var(--base-shadow-size) * 3) var(--txt-glow-2); */
-  /* background: rgb(182, 34, 58); */
+}
+
+/* vcr effect */
+
+canvas {
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 9998;
+  width: 100%;
+  height: 100%;
+}
+canvas.snow {
+  background-color: #aaa;
+  opacity: 0.2;
 }

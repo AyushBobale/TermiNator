@@ -9,7 +9,7 @@ export default function Home() {
       </Head>
       <div className={styles.container}>
         <div className={styles.console}>
-          <div className={styles.consoleHeader}>Header</div>
+          {/* <div className={styles.consoleHeader}>Header</div> */}
           <div className={styles.consoleBody}>
             ls <br />
             Mandatory arguments to long options are mandatory for short options
@@ -19,6 +19,8 @@ export default function Home() {
             --author with -l, print the author of each file <br />
             -b, --escape print C-style escapes for nongraphic characters
           </div>
+
+          <div id={styles.screen}></div>
         </div>
       </div>
     </>
