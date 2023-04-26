@@ -1,0 +1,12 @@
+.console {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 2rem;
+    background: var(--primary-bg);
+    filter: contrast(100%) brightness(140%);
+    padding: 2rem;
+  }
+  
+
