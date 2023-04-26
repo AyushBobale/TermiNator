@@ -53,8 +53,6 @@ export const Vcr = () => {
         const wrapper3 = document.createElement("div");
         wrapper3.classList.add("screen-wrapper");
 
-        console.log(wrapper1, wrapper2, wrapper3);
-
         wrapper1.appendChild(wrapper2);
         wrapper2.appendChild(wrapper3);
 
@@ -487,7 +485,61 @@ export const Vcr = () => {
         }
       }
     }, 1000);
-    console.log("Use effect called");
+  }, []);
+
+  // new aproaach
+
+  // this acts as a contructor
+  const [screenRef, setScreenRef] = useState(useRef(null));
+  const [effect, setEffects] = useState({});
+  // dunno what this is
+  const [events, setEvents] = useState({});
+  const [config, setConfig] = useState({
+    effects: {
+      roll: {
+        enabled: false,
+        options: {
+          speed: 1000,
+        },
+      },
+      image: {
+        enabled: true,
+        options: {
+          src: "https://images.unsplash.com/photo-1505977404378-3a0e28ec6488?ixlib=rb-1.2.1&q=85&fm=jpg&crop=entropy&cs=srgb&ixid=eyJhcHBfaWQiOjE0NTg5fQ",
+          blur: 1.2,
+        },
+      },
+      vignette: { enabled: true },
+      scanlines: { enabled: true },
+      vcr: {
+        enabled: true,
+        options: {
+          opacity: 1,
+          miny: 220,
+          miny2: 220,
+          num: 70,
+          fps: 60,
+        },
+      },
+      wobbley: { enabled: true },
+      snow: {
+        enabled: true,
+        options: {
+          opacity: 0.2,
+        },
+      },
+    },
+  });
+
+  const handleResize = () => {};
+  useEffect(() => {
+    // adding event listner in constructor
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+
+    // render method
   }, []);
 
   const inputRef = useRef();
@@ -517,7 +569,7 @@ export const Vcr = () => {
         handleClick();
       }}
     >
-      <div id="screen">
+      <div id="screen" ref={setScreenRef}>
         <div className="vcr-console">
           <p>ls</p>
           <p>
