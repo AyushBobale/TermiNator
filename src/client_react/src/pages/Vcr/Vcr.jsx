@@ -1,6 +1,6 @@
 import "./Vcr.css";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 export const Vcr = () => {
   useEffect(() => {
@@ -488,13 +488,33 @@ export const Vcr = () => {
     console.log("Use effect called");
   }, []);
 
-  const [inpRef, setInpRef] = useState();
+  const inputRef = useRef();
+  const [inputs, setInputs] = useState([]);
+  const [inputValue, setInputValue] = useState("");
+
+  const handleChange = (e) => {
+    setInputValue(e.target.value);
+  };
+
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter") {
+      setInputs([...inputs, inputValue]);
+      setInputValue("");
+      inputRef.current.focus();
+    }
+  };
+
   const handleClick = () => {
-    inpRef.current.focus();
+    inputRef.current.focus();
   };
 
   return (
-    <div className="vcr-container" onClick={() => handleClick()}>
+    <div
+      className="vcr-container"
+      onClick={() => {
+        handleClick();
+      }}
+    >
       <div id="screen">
         <div className="vcr-console">
           <p>ls</p>
@@ -506,7 +526,24 @@ export const Vcr = () => {
           <p>-A, --almost-all do not list implied . and .. </p>
           <p>--author with -l, print the author of each file </p>
           <p>-b, --escape print C-style escapes for nongraphic characters</p>
-          <input autoFocus ref={setInpRef} />
+          {inputs?.map((elm) => {
+            return <p>{elm}</p>;
+          })}
+          <div className="input-container">
+            <p>{"/Ayush$"}</p>
+            <input
+              id="console-input"
+              autoFocus
+              value={inputValue}
+              ref={inputRef}
+              onChange={(e) => {
+                handleChange(e);
+              }}
+              onKeyDown={(e) => {
+                handleKeyDown(e);
+              }}
+            />
+          </div>
         </div>
       </div>
     </div>

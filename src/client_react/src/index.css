@@ -29,14 +29,14 @@
   --txt-glow-2: rgba(255, 157, 0, 0.6);
   /* green */
   /* --primary: rgba(217, 253, 136, 1);
-    --primary-bg: rgba(21, 27, 14, 1);
-    --primary-bg-rgba: rgba(21, 27, 14, 0.98);
-    --txt-glow-1: rgba(217, 253, 136, 0.8);
-    --txt-glow-2: rgba(217, 253, 136, 0.6); */
+  --primary-bg: rgba(21, 27, 14, 1);
+  --primary-bg-rgba: rgba(21, 27, 14, 0.98);
+  --txt-glow-1: rgba(217, 253, 136, 0.8);
+  --txt-glow-2: rgba(217, 253, 136, 0.6); */
 }
 
 * {
-  font-family: "IBM_VGA";
+  font-family: "Print21";
   font-size: var(--primary-size);
   color: var(--primary);
   margin: 0;
@@ -44,8 +44,9 @@
   box-sizing: border-box;
 }
 
-* {
-  line-height: 70px;
+p,
+input {
+  line-height: calc(var(--primary-size) * 2);
   text-shadow: 0 0 calc(var(--base-shadow-size) * 1) var(--txt-glow-1),
     0 0 calc(var(--base-shadow-size) * 5) var(--txt-glow-2);
 }
@@ -57,6 +58,10 @@ body {
   justify-content: center;
   overflow: hidden;
   background-color: #000;
+}
+
+p {
+  padding: 0.5rem 1rem;
 }
 
 canvas {
