@@ -53,6 +53,8 @@ export const Vcr = () => {
         const wrapper3 = document.createElement("div");
         wrapper3.classList.add("screen-wrapper");
 
+        console.log(wrapper1, wrapper2, wrapper3);
+
         wrapper1.appendChild(wrapper2);
         wrapper2.appendChild(wrapper3);
 
