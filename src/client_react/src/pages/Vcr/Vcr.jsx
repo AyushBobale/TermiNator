@@ -580,7 +580,7 @@ export const Vcr = () => {
           <p>-A, --almost-all do not list implied . and .. </p>
           <p>--author with -l, print the author of each file </p>
           <p>-b, --escape print C-style escapes for nongraphic characters</p>
-          {inputs?.map((elm) => {
+          {/* {inputs?.map((elm) => {
             return <p>{elm}</p>;
           })}
           <div className="input-container">
@@ -597,7 +597,7 @@ export const Vcr = () => {
                 handleKeyDown(e);
               }}
             />
-          </div>
+          </div> */}
         </div>
       </div>
     </div>
