@@ -106,7 +106,7 @@ export const Vcr = () => {
           this.nodes.wrapper2.appendChild(canvas);
 
           animate();
-          // that.generateSnow(ctx);
+          that.generateSnow(ctx);
 
           function animate() {
             that.generateSnow(ctx);
@@ -356,7 +356,7 @@ export const Vcr = () => {
         image: {
           enabled: true,
           options: {
-            src: "https://images.unsplash.com/photo-1505977404378-3a0e28ec6488?ixlib=rb-1.2.1&q=85&fm=jpg&crop=entropy&cs=srgb&ixid=eyJhcHBfaWQiOjE0NTg5fQ",
+            src: "",
             blur: 1.2,
           },
         },
@@ -514,7 +514,7 @@ export const Vcr = () => {
       vignette: { enabled: true },
       scanlines: { enabled: true },
       vcr: {
-        enabled: true,
+        enabled: false,
         options: {
           opacity: 1,
           miny: 220,
