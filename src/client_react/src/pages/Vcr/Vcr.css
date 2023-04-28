@@ -78,7 +78,7 @@
 }
 
 .vignette {
-  background-image: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/86186/crt.png);
+  /* background-image: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/86186/crt.png); */
   width: 100%;
   height: 100%;
   position: absolute;
