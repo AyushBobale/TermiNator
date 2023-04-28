@@ -32,12 +32,14 @@ export const Vcr = () => {
         };
 
         window.addEventListener("resize", this.events.resize, false);
-
+        this.nodes = { temp: "test" };
+        console.log(this.nodes);
         this.render();
       }
 
       render() {
         // in order to prevent creating more divs on page updates
+        console.log("rednder called");
         if (document.getElementsByClassName("screen-container")?.length > 0) {
           return;
         }
@@ -60,8 +62,8 @@ export const Vcr = () => {
 
         this.parent.parentNode.insertBefore(container, this.parent);
         wrapper3.appendChild(this.parent);
-
         this.nodes = { container, wrapper1, wrapper2, wrapper3 };
+        console.log("temp", this.nodes);
 
         this.onResize();
       }
@@ -94,7 +96,7 @@ export const Vcr = () => {
 
         const that = this;
 
-        if (type === "snow") {
+        if (type === "snow" && !!this.rect) {
           const canvas = document.createElement("canvas");
           const ctx = canvas.getContext("2d");
           canvas.classList.add(type);
@@ -125,7 +127,7 @@ export const Vcr = () => {
           return this.enableRoll();
         }
 
-        if (type === "vcr") {
+        if (type === "vcr" && !!this.nodes.wrapper2) {
           const canvas = document.createElement("canvas");
           canvas.classList.add(type);
           this.nodes.wrapper2.appendChild(canvas);
@@ -148,53 +150,53 @@ export const Vcr = () => {
 
         let node = false;
         let wrapper = this.nodes.wrapper2;
+        if (!!wrapper) {
+          switch (type) {
+            case "wobblex":
+            case "wobbley":
+              wrapper.classList.add(type);
+              break;
+            case "scanlines":
+              node = document.createElement("div");
+              node.classList.add(type);
+              wrapper.appendChild(node);
+              break;
+            case "vignette":
+              wrapper = this.nodes.container;
+              node = document.createElement("div");
+              node.classList.add(type);
+              wrapper.appendChild(node);
+              break;
+            case "image":
+              wrapper = this.parent;
+              node = document.createElement("img");
+              node.classList.add(type);
 
-        switch (type) {
-          case "wobblex":
-          case "wobbley":
-            wrapper.classList.add(type);
-            break;
-          case "scanlines":
-            node = document.createElement("div");
-            node.classList.add(type);
-            wrapper.appendChild(node);
-            break;
-          case "vignette":
-            wrapper = this.nodes.container;
-            node = document.createElement("div");
-            node.classList.add(type);
-            wrapper.appendChild(node);
-            break;
-          case "image":
-            wrapper = this.parent;
-            node = document.createElement("img");
-            node.classList.add(type);
+              node.src = config.src;
 
-            node.src = config.src;
+              wrapper.appendChild(node);
+              break;
+            case "video":
+              wrapper = this.parent;
+              node = document.createElement("video");
+              node.classList.add(type);
 
-            wrapper.appendChild(node);
-            break;
-          case "video":
-            wrapper = this.parent;
-            node = document.createElement("video");
-            node.classList.add(type);
+              node.src = config.src;
+              node.crossOrigin = "anonymous";
+              node.autoplay = true;
+              node.muted = true;
+              node.loop = true;
+              wrapper.appendChild(node);
+              break;
+          }
 
-            node.src = config.src;
-            node.crossOrigin = "anonymous";
-            node.autoplay = true;
-            node.muted = true;
-            node.loop = true;
-            wrapper.appendChild(node);
-            break;
+          this.effects[type] = {
+            wrapper,
+            node,
+            enabled: true,
+            config,
+          };
         }
-
-        this.effects[type] = {
-          wrapper,
-          node,
-          enabled: true,
-          config,
-        };
-
         return this;
       }
 
