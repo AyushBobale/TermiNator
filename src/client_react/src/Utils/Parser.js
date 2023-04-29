@@ -11,7 +11,8 @@ clear   :       Clears up your terminal
 -help   :       Gives you a list of commands with their description
 cat     :       Figure out on your own`,
 
-  cat: `                _                       
+  cat: `
+                _                       
                 \\\`*-.                   
                  )  _\`-.                
                 .  : \`. .               

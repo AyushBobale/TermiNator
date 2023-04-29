@@ -1,17 +1,59 @@
 import { Route, Routes } from "react-router-dom";
+import { ThemeProvider, createGlobalStyle } from "styled-components";
 
-import { Home } from "./pages/Home/Home";
 import { Vcr } from "./pages/Vcr/Vcr";
-import { VcrNew } from "./pages/Vcr/VcrNew";
-import logo from "./logo.svg";
+import { useState } from "react";
 
 function App() {
+  const [theme, setTheme] = useState({
+    baseShadowSize: 25,
+    primarySize: 15,
+    fontFamity: "PetMe",
+    activeTheme: "green",
+    lineHeightMult: 1.5,
+
+    orange: {
+      primary: "rgba(255, 157, 0, 1)",
+      primaryBg: "rgba(19, 12, 4, 1)",
+      primaryBgRGBA: "rgba(19, 12, 4, 0.98)",
+      txtGlow1: "rgba(255, 157, 0, 0.8)",
+      txtGlow2: "rgba(255, 157, 0, 0.6)",
+    },
+
+    green: {
+      primary: "rgba(217, 253, 136, 1)",
+      primaryBg: "rgba(21, 27, 14, 1)",
+      primaryBgRGBA: "rgba(21, 27, 14, 0.98)",
+      txtGlow1: "rgba(217, 253, 136, 0.8)",
+      txtGlow2: "rgba(217, 253, 136, 0.6)",
+    },
+  });
+  const themeObj = {};
+  const GlobalStyle = createGlobalStyle`
+    * {
+      font-family:    "${theme.fontFamity}";
+      font-size:      ${theme.primarySize}px;
+      color:          ${theme?.[theme.activeTheme].primary};
+    }
+
+    p,
+    input,
+    pre {
+      line-height:    ${theme.primarySize * theme.lineHeightMult}px;
+      text-shadow:    0 0 ${theme.baseShadowSize * 1}px ${
+    theme?.[theme.activeTheme].txtGlow1
+  };
+                      0 0 ${theme.baseShadowSize * 5}px ${
+    theme?.[theme.activeTheme].txtGlow1
+  };
+  `;
   return (
-    <Routes>
-      <Route path="/" element={<Home />} />
-      <Route path="/vcr" element={<Vcr />} />
-      <Route path="/vcr_new" element={<VcrNew />} />
-    </Routes>
+    <ThemeProvider theme={themeObj}>
+      <GlobalStyle />
+      <Routes>
+        <Route path="/" element={<Vcr />} />
+      </Routes>
+    </ThemeProvider>
   );
 }
 
