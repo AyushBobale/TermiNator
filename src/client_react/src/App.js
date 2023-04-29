@@ -18,14 +18,28 @@ function App() {
       primaryBgRGBA: "rgba(19, 12, 4, 0.98)",
       txtGlow1: "rgba(255, 157, 0, 0.8)",
       txtGlow2: "rgba(255, 157, 0, 0.6)",
+      contrast: 100,
+      brightness: 160,
     },
 
     green: {
-      primary: "rgba(217, 253, 136, 1)",
-      primaryBg: "rgba(21, 27, 14, 1)",
-      primaryBgRGBA: "rgba(21, 27, 14, 0.98)",
-      txtGlow1: "rgba(217, 253, 136, 0.8)",
-      txtGlow2: "rgba(217, 253, 136, 0.6)",
+      primary: "rgba(183, 248, 133, 1)",
+      primaryBg: "rgba(33, 44, 20, 1)",
+      primaryBgRGBA: "rgba(99, 133, 61, 1)",
+      txtGlow1: "rgba(183, 248, 133, 0.8)",
+      txtGlow2: "rgba(183, 248, 133, 0.6)",
+      contrast: 120,
+      brightness: 200,
+    },
+
+    blue: {
+      primary: "rgba(177, 232, 249, 1)",
+      primaryBg: "rgba(40, 84, 97, 1)",
+      primaryBgRGBA: "rgba(40, 84, 97, 1)",
+      txtGlow1: "rgba(197, 242, 249, 0.8)",
+      txtGlow2: "rgba(197, 242, 249, 0.6)",
+      contrast: 200,
+      brightness: 200,
     },
   });
   const themeObj = {};
@@ -38,6 +52,9 @@ function App() {
     --primary-bg-rgba: ${theme?.[theme.activeTheme].primaryBgRGBA};
     --txt-glow-1: ${theme?.[theme.activeTheme].txtGlow1};
     --txt-glow-2: ${theme?.[theme.activeTheme].txtGlow2};
+
+    --contrast: ${theme?.[theme.activeTheme].contrast}%;
+    --brightness: ${theme?.[theme.activeTheme].brightness}%;
   }
     * {
       font-family:    "${theme.fontFamity}";
@@ -56,6 +73,7 @@ function App() {
     theme?.[theme.activeTheme].txtGlow1
   };
   `;
+
   return (
     <ThemeProvider theme={themeObj}>
       <GlobalStyle />
