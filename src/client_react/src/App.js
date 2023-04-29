@@ -30,6 +30,15 @@ function App() {
   });
   const themeObj = {};
   const GlobalStyle = createGlobalStyle`
+  :root {
+    --base-shadow-size: ${theme.baseShadowSize}px;
+    --primary-size: ${theme.primarySize}px;
+    --primary: ${theme?.[theme.activeTheme].primary};
+    --primary-bg: ${theme?.[theme.activeTheme].primaryBg};
+    --primary-bg-rgba: ${theme?.[theme.activeTheme].primaryBgRGBA};
+    --txt-glow-1: ${theme?.[theme.activeTheme].txtGlow1};
+    --txt-glow-2: ${theme?.[theme.activeTheme].txtGlow2};
+  }
     * {
       font-family:    "${theme.fontFamity}";
       font-size:      ${theme.primarySize}px;
