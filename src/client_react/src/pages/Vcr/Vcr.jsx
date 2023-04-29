@@ -536,7 +536,7 @@ export const Vcr = () => {
       );
       return;
     }
-    if (e.key === "Enter") {
+    if (e.key === "Enter" && command) {
       commandParser(
         command,
         commandHistory,
@@ -563,6 +563,10 @@ export const Vcr = () => {
     >
       <div id="screen" ref={setScreenRef}>
         <div className="vcr-console">
+          <pre>{`Welcome to my website/terminal
+Click on screen and start running commands !!
+To get details type help and press Enter
+          `}</pre>
           {commandHistory?.slice(commandIndex)?.map((elm) => {
             return <pre>{elm?.output}</pre>;
           })}
