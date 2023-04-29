@@ -2,6 +2,8 @@ import "./Vcr.css";
 
 import React, { useEffect, useRef, useState } from "react";
 
+import { commandParser } from "../../Utils/Parser";
+
 export const Vcr = () => {
   useEffect(() => {
     function getRandomInt(min, max) {
@@ -33,13 +35,11 @@ export const Vcr = () => {
 
         window.addEventListener("resize", this.events.resize, false);
         this.nodes = { temp: "test" };
-        console.log(this.nodes);
         this.render();
       }
 
       render() {
         // in order to prevent creating more divs on page updates
-        console.log("rednder called");
         if (document.getElementsByClassName("screen-container")?.length > 0) {
           return;
         }
@@ -63,7 +63,6 @@ export const Vcr = () => {
         this.parent.parentNode.insertBefore(container, this.parent);
         wrapper3.appendChild(this.parent);
         this.nodes = { container, wrapper1, wrapper2, wrapper3 };
-        console.log("temp", this.nodes);
 
         this.onResize();
       }
@@ -347,31 +346,31 @@ export const Vcr = () => {
     const screen = new ScreenEffect("#screen", {});
     const config = {
       effects: {
-        roll: {
-          enabled: false,
-          options: {
-            speed: 1000,
-          },
-        },
-        image: {
-          enabled: true,
-          options: {
-            src: "",
-            blur: 1.2,
-          },
-        },
+        // roll: {
+        //   enabled: false,
+        //   options: {
+        //     speed: 1000,
+        //   },
+        // },
+        // image: {
+        //   enabled: true,
+        //   options: {
+        //     src: "",
+        //     blur: 1.2,
+        //   },
+        // },
         vignette: { enabled: true },
         scanlines: { enabled: true },
-        vcr: {
-          enabled: true,
-          options: {
-            opacity: 1,
-            miny: 220,
-            miny2: 220,
-            num: 70,
-            fps: 60,
-          },
-        },
+        // vcr: {
+        //   enabled: false,
+        //   options: {
+        //     opacity: 1,
+        //     miny: 220,
+        //     miny2: 220,
+        //     num: 70,
+        //     fps: 60,
+        //   },
+        // },
         wobbley: { enabled: true },
         snow: {
           enabled: true,
@@ -387,9 +386,9 @@ export const Vcr = () => {
       gui = new window.dat.GUI();
       f1 = gui.addFolder("Effects");
       f2 = gui.addFolder("Snow");
-      f3 = gui.addFolder("VCR");
-      f4 = gui.addFolder("Roll");
-      f5 = gui.addFolder("Image");
+      // f3 = gui.addFolder("VCR");
+      // f4 = gui.addFolder("Roll");
+      // f5 = gui.addFolder("Image");
     }
     if (gui && screen) {
       for (const effect in config.effects) {
@@ -473,11 +472,11 @@ export const Vcr = () => {
           }
         }
       }
-      f1.open();
-      f2.open();
-      f3.open();
-      f4.open();
-      f5.open();
+      // f1.open();
+      // f2.open();
+      // f3.open();
+      // f4.open();
+      // f5.open();
     }
 
     setTimeout(() => {
@@ -487,51 +486,13 @@ export const Vcr = () => {
         }
       }
     }, 1000);
+    inputRef.current.focus();
   }, []);
 
   // new aproaach
 
   // this acts as a contructor
   const [screenRef, setScreenRef] = useState(useRef(null));
-  const [effect, setEffects] = useState({});
-  // dunno what this is
-  const [events, setEvents] = useState({});
-  const [config, setConfig] = useState({
-    effects: {
-      roll: {
-        enabled: false,
-        options: {
-          speed: 1000,
-        },
-      },
-      image: {
-        enabled: true,
-        options: {
-          src: "https://images.unsplash.com/photo-1505977404378-3a0e28ec6488?ixlib=rb-1.2.1&q=85&fm=jpg&crop=entropy&cs=srgb&ixid=eyJhcHBfaWQiOjE0NTg5fQ",
-          blur: 1.2,
-        },
-      },
-      vignette: { enabled: true },
-      scanlines: { enabled: true },
-      vcr: {
-        enabled: false,
-        options: {
-          opacity: 1,
-          miny: 220,
-          miny2: 220,
-          num: 70,
-          fps: 60,
-        },
-      },
-      wobbley: { enabled: true },
-      snow: {
-        enabled: true,
-        options: {
-          opacity: 0.2,
-        },
-      },
-    },
-  });
 
   const handleResize = () => {};
   useEffect(() => {
@@ -544,18 +505,47 @@ export const Vcr = () => {
     // render method
   }, []);
 
+  // command parsing -------------------------
   const inputRef = useRef();
-  const [inputs, setInputs] = useState([]);
-  const [inputValue, setInputValue] = useState("");
+  const [commandHistory, setCommandHistory] = useState([]);
+  const [commandIndex, setCommandIndex] = useState(0);
+  const [command, setCommand] = useState("");
+  const [activeCmdIdx, setActiveCmdIdx] = useState(0);
 
   const handleChange = (e) => {
-    setInputValue(e.target.value);
+    setCommand(e.target.value);
   };
 
   const handleKeyDown = (e) => {
+    console.log(activeCmdIdx, commandHistory);
+    if (e.key == "ArrowUp") {
+      setActiveCmdIdx(
+        activeCmdIdx - 1 + commandHistory?.length > 0
+          ? activeCmdIdx - 1
+          : activeCmdIdx
+      );
+      setCommand(
+        commandHistory[commandHistory.length + activeCmdIdx - 1]?.command
+      );
+      return;
+    }
+    if (e.key == "ArrowDown") {
+      setActiveCmdIdx(activeCmdIdx + 1 < 0 ? activeCmdIdx + 1 : 0);
+      setCommand(
+        commandHistory[commandHistory.length + activeCmdIdx - 1]?.command
+      );
+      return;
+    }
     if (e.key === "Enter") {
-      setInputs([...inputs, inputValue]);
-      setInputValue("");
+      commandParser(
+        command,
+        commandHistory,
+        setCommandHistory,
+        commandIndex,
+        setCommandIndex
+      );
+      setActiveCmdIdx(0);
+      setCommand("");
       inputRef.current.focus();
     }
   };
@@ -573,24 +563,15 @@ export const Vcr = () => {
     >
       <div id="screen" ref={setScreenRef}>
         <div className="vcr-console">
-          <p>ls</p>
-          <p>
-            Mandatory arguments to long options are mandatory for short options
-            too.
-          </p>
-          <p>-a, --all do not ignore entries starting with . </p>
-          <p>-A, --almost-all do not list implied . and .. </p>
-          <p>--author with -l, print the author of each file </p>
-          <p>-b, --escape print C-style escapes for nongraphic characters</p>
-          {/* {inputs?.map((elm) => {
-            return <p>{elm}</p>;
+          {commandHistory?.slice(commandIndex)?.map((elm) => {
+            return <pre>{elm?.output}</pre>;
           })}
           <div className="input-container">
             <p>{"/Ayush$"}</p>
             <input
               id="console-input"
               autoFocus
-              value={inputValue}
+              value={command}
               ref={inputRef}
               onChange={(e) => {
                 handleChange(e);
@@ -599,7 +580,7 @@ export const Vcr = () => {
                 handleKeyDown(e);
               }}
             />
-          </div> */}
+          </div>
         </div>
       </div>
     </div>

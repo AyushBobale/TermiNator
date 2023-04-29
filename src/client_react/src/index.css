@@ -45,7 +45,8 @@
 }
 
 p,
-input {
+input,
+pre {
   line-height: calc(var(--primary-size) * 2);
   text-shadow: 0 0 calc(var(--base-shadow-size) * 1) var(--txt-glow-1),
     0 0 calc(var(--base-shadow-size) * 5) var(--txt-glow-2);
