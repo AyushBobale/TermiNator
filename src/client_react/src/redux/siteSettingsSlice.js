@@ -30,7 +30,7 @@ const initialState = {
     txtGlow1: "rgba(183, 248, 133, 0.8)",
     txtGlow2: "rgba(183, 248, 133, 0.6)",
     contrast: 120,
-    brightness: 200,
+    brightness: 100,
   },
 
   steelblue: {
@@ -58,9 +58,12 @@ const settingsSlice = createSlice({
       console.log(payload);
       state[payload.theme].contrast = payload.contrast;
     },
+    changeFontSize: (state, { payload }) => {
+      state.primarySize = payload;
+    },
   },
 });
 
-export const { changeTheme, changeBrightness, changeContrast } =
+export const { changeTheme, changeBrightness, changeContrast, changeFontSize } =
   settingsSlice.actions;
 export default settingsSlice.reducer;

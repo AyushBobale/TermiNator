@@ -2,9 +2,14 @@ import "./Vcr.css";
 
 import React, { useEffect, useRef, useState } from "react";
 
+import { changeFontSize } from "../../redux/siteSettingsSlice";
 import useCommandParser from "../../Utils/Parser";
+import { useDispatch } from "react-redux";
 
 export const Vcr = () => {
+  const dispatch = useDispatch();
+  const [fontsize, setFontsize] = useState(13);
+
   useEffect(() => {
     function getRandomInt(min, max) {
       min = Math.ceil(min);
@@ -102,7 +107,7 @@ export const Vcr = () => {
           canvas.width = this.rect.width / 2;
           canvas.height = this.rect.height / 2;
 
-          this.nodes.wrapper2.appendChild(canvas);
+          this.nodes?.wrapper2.appendChild(canvas);
 
           animate();
           that.generateSnow(ctx);
@@ -359,7 +364,7 @@ export const Vcr = () => {
         //     blur: 1.2,
         //   },
         // },
-        vignette: { enabled: true },
+        vignette: { enabled: false },
         scanlines: { enabled: true },
         // vcr: {
         //   enabled: false,
@@ -487,6 +492,13 @@ export const Vcr = () => {
       }
     }, 1000);
     inputRef.current.focus();
+
+    setFontsize(Math.min(Math.max(parseInt(window.innerWidth / 60), 8), 15));
+    dispatch(
+      changeFontSize(
+        Math.min(Math.max(parseInt(window.innerWidth / 60), 8), 15)
+      )
+    );
   }, []);
 
   // new aproaach
@@ -566,6 +578,7 @@ export const Vcr = () => {
           <pre>{`Welcome to my website/terminal
 Click on screen and start running commands !!
 To get details type help and press Enter
+Fontsize automatically[unless defined explicitly] set to ${fontsize}
 `}</pre>
           {commandHistory?.slice(commandIndex)?.map((elm) => {
             return <pre>{elm?.output}</pre>;
