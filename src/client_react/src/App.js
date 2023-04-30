@@ -1,7 +1,9 @@
 import { Route, Routes } from "react-router-dom";
 import { ThemeProvider, createGlobalStyle } from "styled-components";
 
+import { Provider } from "react-redux";
 import { Vcr } from "./pages/Vcr/Vcr";
+import store from "./redux/store.js";
 import { useState } from "react";
 
 function App() {
@@ -9,7 +11,7 @@ function App() {
     baseShadowSize: 25,
     primarySize: 15,
     fontFamity: "PetMe",
-    activeTheme: "green",
+    activeTheme: "blue",
     lineHeightMult: 1.5,
 
     orange: {
@@ -75,12 +77,14 @@ function App() {
   `;
 
   return (
-    <ThemeProvider theme={themeObj}>
-      <GlobalStyle />
-      <Routes>
-        <Route path="/" element={<Vcr />} />
-      </Routes>
-    </ThemeProvider>
+    <Provider store={store}>
+      <ThemeProvider theme={themeObj}>
+        <GlobalStyle />
+        <Routes>
+          <Route path="/" element={<Vcr />} />
+        </Routes>
+      </ThemeProvider>
+    </Provider>
   );
 }
 

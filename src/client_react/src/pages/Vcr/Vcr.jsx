@@ -517,7 +517,6 @@ export const Vcr = () => {
   };
 
   const handleKeyDown = (e) => {
-    console.log(activeCmdIdx, commandHistory);
     if (e.key == "ArrowUp") {
       setActiveCmdIdx(
         activeCmdIdx - 1 + commandHistory?.length > 0
