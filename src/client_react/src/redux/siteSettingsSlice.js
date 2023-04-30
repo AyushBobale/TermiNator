@@ -1,10 +1,16 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+export const THEMES = {
+  amber: "orange",
+  green: "green",
+  steelblue: "blue",
+};
+
 const initialState = {
   baseShadowSize: 25,
   primarySize: 15,
   fontFamity: "PetMe",
-  activeTheme: "blue",
+  activeTheme: "green",
   lineHeightMult: 1.5,
 
   orange: {
@@ -41,8 +47,12 @@ const initialState = {
 const settingsSlice = createSlice({
   name: "settings",
   initialState: initialState,
-  reducers: {},
+  reducers: {
+    changeTheme: (state, { payload }) => {
+      state.activeTheme = payload;
+    },
+  },
 });
 
-export const {} = settingsSlice.actions;
+export const { changeTheme } = settingsSlice.actions;
 export default settingsSlice.reducer;

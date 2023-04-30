@@ -2,7 +2,7 @@ import "./Vcr.css";
 
 import React, { useEffect, useRef, useState } from "react";
 
-import { commandParser } from "../../Utils/Parser";
+import useCommandParser from "../../Utils/Parser";
 
 export const Vcr = () => {
   useEffect(() => {
@@ -511,6 +511,7 @@ export const Vcr = () => {
   const [commandIndex, setCommandIndex] = useState(0);
   const [command, setCommand] = useState("");
   const [activeCmdIdx, setActiveCmdIdx] = useState(0);
+  const commandParserHook = useCommandParser();
 
   const handleChange = (e) => {
     setCommand(e.target.value);
@@ -536,7 +537,7 @@ export const Vcr = () => {
       return;
     }
     if (e.key === "Enter" && command) {
-      commandParser(
+      commandParserHook(
         command,
         commandHistory,
         setCommandHistory,
@@ -565,7 +566,7 @@ export const Vcr = () => {
           <pre>{`Welcome to my website/terminal
 Click on screen and start running commands !!
 To get details type help and press Enter
-          `}</pre>
+`}</pre>
           {commandHistory?.slice(commandIndex)?.map((elm) => {
             return <pre>{elm?.output}</pre>;
           })}
