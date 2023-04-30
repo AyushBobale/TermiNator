@@ -1,19 +1,19 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 export const THEMES = {
-  amber: "orange",
-  green: "green",
-  steelblue: "blue",
+  amber: "amber",
+  forestshadow: "forestshadow",
+  steelblue: "steelblue",
 };
 
 const initialState = {
   baseShadowSize: 25,
-  primarySize: 15,
+  primarySize: 12,
   fontFamity: "PetMe",
-  activeTheme: "green",
+  activeTheme: "amber",
   lineHeightMult: 1.5,
 
-  orange: {
+  amber: {
     primary: "rgba(255, 157, 0, 1)",
     primaryBg: "rgba(19, 12, 4, 1)",
     primaryBgRGBA: "rgba(19, 12, 4, 0.98)",
@@ -23,7 +23,7 @@ const initialState = {
     brightness: 160,
   },
 
-  green: {
+  forestshadow: {
     primary: "rgba(183, 248, 133, 1)",
     primaryBg: "rgba(33, 44, 20, 1)",
     primaryBgRGBA: "rgba(99, 133, 61, 1)",
@@ -33,7 +33,7 @@ const initialState = {
     brightness: 200,
   },
 
-  blue: {
+  steelblue: {
     primary: "rgba(177, 232, 249, 1)",
     primaryBg: "rgba(40, 84, 97, 1)",
     primaryBgRGBA: "rgba(40, 84, 97, 1)",
@@ -51,8 +51,16 @@ const settingsSlice = createSlice({
     changeTheme: (state, { payload }) => {
       state.activeTheme = payload;
     },
+    changeBrightness: (state, { payload }) => {
+      state[payload.theme].brightness = payload.brightness;
+    },
+    changeContrast: (state, { payload }) => {
+      console.log(payload);
+      state[payload.theme].contrast = payload.contrast;
+    },
   },
 });
 
-export const { changeTheme } = settingsSlice.actions;
+export const { changeTheme, changeBrightness, changeContrast } =
+  settingsSlice.actions;
 export default settingsSlice.reducer;
