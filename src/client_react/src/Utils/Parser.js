@@ -146,6 +146,14 @@ export const useCommandParser = () => {
       case commands.clear:
         setCmdIdx(history.length);
         setHistory([...history, { command: text, output: `` }]);
+        localStorage.setItem(
+          "state",
+          JSON.stringify({
+            settings: settings,
+            history: [...history, { command: text, output: `` }],
+            activeCmdIdx: history.length,
+          })
+        );
         break;
 
       case commands.help:
@@ -355,10 +363,10 @@ export const useCommandParser = () => {
         break;
 
       case commands.save:
-        localStorage.setItem(
-          "state",
-          JSON.stringify({ settings: settings, history: history })
-        );
+        // localStorage.setItem(
+        //   "state",
+        //   JSON.stringify({ settings: settings, history: history })
+        // );
         setHistory([
           ...history,
           { command: text, output: `The site settings have been saved` },
@@ -368,12 +376,13 @@ export const useCommandParser = () => {
       case commands.reset:
         localStorage.removeItem("state");
         setHistory([
-          ...history,
+          [],
           {
             command: text,
             output: `The site state has been restored to default`,
           },
         ]);
+        setCmdIdx(0);
         dispatch(resetToDefault());
         break;
 
@@ -385,11 +394,16 @@ export const useCommandParser = () => {
         break;
     }
     // Continue here
-
-    localStorage.setItem(
-      "state",
-      JSON.stringify({ settings: settings, history: history })
-    );
+    if (textLower[0] != commands.reset && textLower[0] !== commands.clear) {
+      localStorage.setItem(
+        "state",
+        JSON.stringify({
+          settings: settings,
+          history: history,
+          activeCmdIdx: cmdIdx,
+        })
+      );
+    }
   };
   useEffect(() => {}, []);
   return commandParser;

@@ -512,6 +512,13 @@ export const Vcr = () => {
     if (JSON.parse(localStorage.getItem("state"))?.history) {
       setCommandHistory(JSON.parse(localStorage.getItem("state"))?.history);
     }
+    if (JSON.parse(localStorage.getItem("state"))?.activeCmdIdx) {
+      setCommandIndex(JSON.parse(localStorage.getItem("state"))?.activeCmdIdx);
+    }
+    console.log(
+      JSON.parse(localStorage.getItem("state"))?.activeCmdIdx,
+      commandIndex
+    );
   }, []);
 
   // new aproaach
