@@ -59,6 +59,7 @@ const settingsSlice = createSlice({
   name: "settings",
   initialState: initialState,
   reducers: {
+    loadLocalTheme: (state, { payload }) => payload,
     changeTheme: (state, { payload }) => {
       state.activeTheme = payload;
     },
@@ -87,5 +88,6 @@ export const {
   changeFontSize,
   setCustomTheme,
   resetToDefault,
+  loadLocalTheme,
 } = settingsSlice.actions;
 export default settingsSlice.reducer;

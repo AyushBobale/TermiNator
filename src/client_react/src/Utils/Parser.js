@@ -384,6 +384,12 @@ export const useCommandParser = () => {
         ]);
         break;
     }
+    // Continue here
+
+    localStorage.setItem(
+      "state",
+      JSON.stringify({ settings: settings, history: history })
+    );
   };
   useEffect(() => {}, []);
   return commandParser;

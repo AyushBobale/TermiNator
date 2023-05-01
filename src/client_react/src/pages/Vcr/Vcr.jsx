@@ -1,9 +1,9 @@
 import "./Vcr.css";
 
 import React, { useEffect, useRef, useState } from "react";
+import { changeFontSize, loadLocalTheme } from "../../redux/siteSettingsSlice";
 import { useDispatch, useSelector } from "react-redux";
 
-import { changeFontSize } from "../../redux/siteSettingsSlice";
 import useCommandParser from "../../Utils/Parser";
 
 export const Vcr = () => {
@@ -501,6 +501,18 @@ export const Vcr = () => {
       )
     );
   }, [settings]);
+
+  // loading initial site state
+  useEffect(() => {
+    if (JSON.parse(localStorage.getItem("state"))?.settings) {
+      dispatch(
+        loadLocalTheme(JSON.parse(localStorage.getItem("state"))?.settings)
+      );
+    }
+    if (JSON.parse(localStorage.getItem("state"))?.history) {
+      setCommandHistory(JSON.parse(localStorage.getItem("state"))?.history);
+    }
+  }, []);
 
   // new aproaach
 
