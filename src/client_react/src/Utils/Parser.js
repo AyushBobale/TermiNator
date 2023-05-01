@@ -5,6 +5,7 @@ import {
   changeContrast,
   changeFontSize,
   changeTheme,
+  resetToDefault,
   setCustomTheme,
 } from "../redux/siteSettingsSlice";
 import { useDispatch, useSelector } from "react-redux";
@@ -27,6 +28,7 @@ const commands = {
   contrast: "contrast",
   fontsize: "fontsize",
   reset: "reset",
+  save: "save",
 };
 
 const outputs = {
@@ -60,6 +62,7 @@ fontsize    :       Changes fontsize
                       : fontsize <value>
                         [values range between 5 - 50]
 clear       :       Clears up your terminal
+save        :       Saves the current site state
 reset       :       Resets all settings to default
 cat         :       Figure out on your own
 `,
@@ -349,6 +352,29 @@ export const useCommandParser = () => {
             },
           ]);
         }
+        break;
+
+      case commands.save:
+        localStorage.setItem(
+          "state",
+          JSON.stringify({ settings: settings, history: history })
+        );
+        setHistory([
+          ...history,
+          { command: text, output: `The site settings have been saved` },
+        ]);
+        break;
+
+      case commands.reset:
+        localStorage.removeItem("state");
+        setHistory([
+          ...history,
+          {
+            command: text,
+            output: `The site state has been restored to default`,
+          },
+        ]);
+        dispatch(resetToDefault());
         break;
 
       default:

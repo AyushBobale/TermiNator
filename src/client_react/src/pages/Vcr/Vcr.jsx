@@ -1,14 +1,15 @@
 import "./Vcr.css";
 
 import React, { useEffect, useRef, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 import { changeFontSize } from "../../redux/siteSettingsSlice";
 import useCommandParser from "../../Utils/Parser";
-import { useDispatch } from "react-redux";
 
 export const Vcr = () => {
   const dispatch = useDispatch();
   const [fontsize, setFontsize] = useState(13);
+  const settings = useSelector((state) => state.rootReducer.settings);
 
   useEffect(() => {
     function getRandomInt(min, max) {
@@ -499,7 +500,7 @@ export const Vcr = () => {
         Math.min(Math.max(parseInt(window.innerWidth / 60), 8), 15)
       )
     );
-  }, []);
+  }, [settings]);
 
   // new aproaach
 

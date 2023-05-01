@@ -76,6 +76,7 @@ const settingsSlice = createSlice({
       state["custom"] = payload;
       state.activeTheme = "custom";
     },
+    resetToDefault: () => initialState,
   },
 });
 
@@ -85,5 +86,6 @@ export const {
   changeContrast,
   changeFontSize,
   setCustomTheme,
+  resetToDefault,
 } = settingsSlice.actions;
 export default settingsSlice.reducer;
