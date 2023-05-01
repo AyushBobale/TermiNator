@@ -495,18 +495,21 @@ export const Vcr = () => {
     inputRef.current.focus();
 
     setFontsize(Math.min(Math.max(parseInt(window.innerWidth / 60), 8), 15));
-    dispatch(
-      changeFontSize(
-        Math.min(Math.max(parseInt(window.innerWidth / 60), 8), 15)
-      )
-    );
   }, [settings]);
 
   // loading initial site state
   useEffect(() => {
+    console.log("Loaded initial settings");
+    console.log(JSON.parse(localStorage.getItem("state"))?.settings);
     if (JSON.parse(localStorage.getItem("state"))?.settings) {
       dispatch(
         loadLocalTheme(JSON.parse(localStorage.getItem("state"))?.settings)
+      );
+    } else {
+      dispatch(
+        changeFontSize(
+          Math.min(Math.max(parseInt(window.innerWidth / 60), 8), 15)
+        )
       );
     }
     if (JSON.parse(localStorage.getItem("state"))?.history) {

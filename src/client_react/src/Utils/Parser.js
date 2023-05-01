@@ -18,6 +18,7 @@ const commands = {
   clear: "clear",
   profile: "profile",
   projects: "projects",
+  project: "project",
   skills: "skills",
   help: "help",
   cat: "cat",
@@ -37,6 +38,10 @@ help        :       Gives you a list of commands with their
                     description
 profile     :       Opens a new tab with my github profile
 projects    :       Lists all of my noteable project
+project     :       Navigates you to a specific projects
+                    Usage
+                      : project <number>
+                        [Number can range from 1-5]
 skills      :       Lists my proficiency in all of the 
                     skills that I have gained
 theme       :       You can change between themes
@@ -86,18 +91,40 @@ cat         :       Figure out on your own
 `,
 
   projects: `
----------------------------------------
-|   1. NeuroEvolutionUsing Neat
-|      
-|
-|
----------------------------------------
-|
-|
-|
-|
----------------------------------------
+To visit any of the projects just run the command
+project [number] where the number is the number of the project
+
+-----------------------------------------------------------
+|  1. NeuroEvolutionUsing Neat                            |
+|     Genetic alorgithm to evolve 2d creatures for task   | 
+|     optimization.                                       |
+-----------------------------------------------------------
+|  2. Data Visualization Dashboard                        |
+|     Data Visualizaton dashboard created using MERN      |
+|     stack and chart js.                                 |
+-----------------------------------------------------------
+|  3. Accident Prevention using OpenCV                    |
+|     Open CV project that acts an a aide to the dirver   |
+|     and notifies of the danger ahead.                   |
+-----------------------------------------------------------
+|  4. Node Shell                                          |
+|     A shell emulator written in js that can spawn       |
+|     multiple child processes and can pause, resume and  |
+|     stop them.                                          |
+-----------------------------------------------------------
+|  5. This Project                                        |
+|     A an unique project written in React js to demons-  |
+|     strate my web dev skills                            |
+-----------------------------------------------------------
 `,
+
+  project: [
+    "https://github.com/AyushBobale/NeuroEvolutionUsingNEAT",
+    "https://github.com/AyushBobale/VisualizationDashboard",
+    "https://github.com/AyushBobale/OpenCVLaneDetection",
+    "https://github.com/AyushBobale/NodeShell",
+    "https://github.com/AyushBobale/TermiNator",
+  ],
 
   skills: `
 --------------------------------------
@@ -146,14 +173,6 @@ export const useCommandParser = () => {
       case commands.clear:
         setCmdIdx(history.length);
         setHistory([...history, { command: text, output: `` }]);
-        localStorage.setItem(
-          "state",
-          JSON.stringify({
-            settings: settings,
-            history: [...history, { command: text, output: `` }],
-            activeCmdIdx: history.length,
-          })
-        );
         break;
 
       case commands.help:
@@ -363,10 +382,14 @@ export const useCommandParser = () => {
         break;
 
       case commands.save:
-        // localStorage.setItem(
-        //   "state",
-        //   JSON.stringify({ settings: settings, history: history })
-        // );
+        localStorage.setItem(
+          "state",
+          JSON.stringify({
+            settings: settings,
+            history: history,
+            activeCmdIdx: cmdIdx,
+          })
+        );
         setHistory([
           ...history,
           { command: text, output: `The site settings have been saved` },
@@ -386,23 +409,40 @@ export const useCommandParser = () => {
         dispatch(resetToDefault());
         break;
 
+      case commands.project:
+        const projectNumber = parseInt(textLower[1]);
+        if (projectNumber >= 1 && projectNumber <= 5) {
+          setHistory([
+            ...history,
+            {
+              command: text,
+              output: `I will navigate you to the project in 3 seconds`,
+            },
+          ]);
+          setTimeout(() => {
+            window.open(
+              outputs.project[projectNumber],
+              "_blank",
+              "noopener,noreferrer"
+            );
+          }, 3000);
+        } else {
+          setHistory([
+            ...history,
+            {
+              command: text,
+              output: `Project number can range between 1 to 5`,
+            },
+          ]);
+        }
+        break;
+
       default:
         setHistory([
           ...history,
           { command: text, output: `${textLower[0]} is not a valid command` },
         ]);
         break;
-    }
-    // Continue here
-    if (textLower[0] != commands.reset && textLower[0] !== commands.clear) {
-      localStorage.setItem(
-        "state",
-        JSON.stringify({
-          settings: settings,
-          history: history,
-          activeCmdIdx: cmdIdx,
-        })
-      );
     }
   };
   useEffect(() => {}, []);
