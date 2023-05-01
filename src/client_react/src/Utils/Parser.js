@@ -5,10 +5,13 @@ import {
   changeContrast,
   changeFontSize,
   changeTheme,
+  setCustomTheme,
 } from "../redux/siteSettingsSlice";
 import { useDispatch, useSelector } from "react-redux";
 
 // reset and local storage to be implemented
+// diansour game
+// ping pong game
 
 const commands = {
   clear: "clear",
@@ -19,6 +22,7 @@ const commands = {
   cat: "cat",
   play: "play",
   theme: "theme",
+  customtheme: "customtheme",
   brightness: "brightness",
   contrast: "contrast",
   fontsize: "fontsize",
@@ -37,10 +41,16 @@ theme       :       You can change between themes
                     Usage
                       : theme <value>     
                         [value can be ${Object.keys(THEMES)}]
+customtheme :       You can make your own custom theme
+                        Usage
+                          : customtheme <hex_value> [brightness] [contrast]
+                            [value should be a valid hex value
+                            with the # symbol]
+                            [brightness and contrast are optional default 100]
 brightness  :       Changes brightness
                     Usage
                       : brightness <value>
-                        [values range between 0 - 1000]
+                        [values range between 50 - 1000]
 contrast    :       Changes contrast
                     Usage
                       : contrast <value>
@@ -126,7 +136,7 @@ export const useCommandParser = () => {
   const settings = useSelector((state) => state.rootReducer.settings);
 
   const commandParser = (text, history, setHistory, cmdIdx, setCmdIdx) => {
-    const textLower = text?.toLowerCase().trim().split(" ");
+    const textLower = text?.toLowerCase().trim().split(/\s+/);
 
     console.log(textLower);
     switch (textLower[0]) {
@@ -179,7 +189,7 @@ export const useCommandParser = () => {
 
       case commands.brightness:
         const brightness = parseInt(textLower?.[1]);
-        if (brightness >= 0 && brightness <= 1000) {
+        if (brightness >= 50 && brightness <= 1000) {
           setHistory([
             ...history,
             {
@@ -198,7 +208,7 @@ export const useCommandParser = () => {
             ...history,
             {
               command: text,
-              output: `Brightness can only be in between 0 and 1000`,
+              output: `Brightness can only be in between 50 and 1000`,
             },
           ]);
         }
@@ -290,6 +300,55 @@ export const useCommandParser = () => {
             output: outputs.skills,
           },
         ]);
+        break;
+
+      case commands.customtheme:
+        const hex = textLower[1];
+        let contrastCustom = parseInt(textLower[3]);
+        let brightnessCustom = parseInt(textLower[2]);
+
+        let rgba;
+        console.log(hex);
+        if (/^#([A-Fa-f0-9]{3}){1,2}$/.test(hex)) {
+          rgba = (alpha, multiplier) => {
+            let c = hex.substring(1).split("");
+            if (c.length == 3) {
+              c = [c[0], c[0], c[1], c[1], c[2], c[2]];
+            }
+            c = "0x" + c.join("");
+            let r = Math.round(((c >> 16) & 255) * multiplier);
+            let g = Math.round(((c >> 8) & 255) * multiplier);
+            let b = Math.round((c & 255) * multiplier);
+            return "rgba(" + [r, g, b].join(",") + "," + alpha + ")";
+          };
+          const theme = {
+            primary: rgba(1, 1),
+            primaryBg: rgba(1, 0.2),
+            primaryBgRGBA: rgba(0.95, 0.2),
+            txtGlow1: rgba(0.8, 1),
+            txtGlow2: rgba(0.6, 1),
+            contrast: contrastCustom || 100,
+            brightness: brightnessCustom || 100,
+          };
+          console.log(rgba(1, 0.5));
+
+          dispatch(setCustomTheme(theme));
+          setHistory([
+            ...history,
+            {
+              command: text,
+              output: `Custom theme set to ${hex} change brightness and contrast to your likings`,
+            },
+          ]);
+        } else {
+          setHistory([
+            ...history,
+            {
+              command: text,
+              output: `${textLower[0]} is not a valid hex value e.g.[#fff]`,
+            },
+          ]);
+        }
         break;
 
       default:

@@ -4,6 +4,7 @@ export const THEMES = {
   amber: "amber",
   forestshadow: "forestshadow",
   steelblue: "steelblue",
+  custom: "custom",
 };
 
 const initialState = {
@@ -42,6 +43,16 @@ const initialState = {
     contrast: 200,
     brightness: 200,
   },
+
+  custom: {
+    primary: "rgba(255, 157, 0, 1)",
+    primaryBg: "rgba(19, 12, 4, 1)",
+    primaryBgRGBA: "rgba(19, 12, 4, 0.98)",
+    txtGlow1: "rgba(255, 157, 0, 0.8)",
+    txtGlow2: "rgba(255, 157, 0, 0.6)",
+    contrast: 100,
+    brightness: 100,
+  },
 };
 
 const settingsSlice = createSlice({
@@ -61,9 +72,18 @@ const settingsSlice = createSlice({
     changeFontSize: (state, { payload }) => {
       state.primarySize = payload;
     },
+    setCustomTheme: (state, { payload }) => {
+      state["custom"] = payload;
+      state.activeTheme = "custom";
+    },
   },
 });
 
-export const { changeTheme, changeBrightness, changeContrast, changeFontSize } =
-  settingsSlice.actions;
+export const {
+  changeTheme,
+  changeBrightness,
+  changeContrast,
+  changeFontSize,
+  setCustomTheme,
+} = settingsSlice.actions;
 export default settingsSlice.reducer;
