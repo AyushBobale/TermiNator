@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
   THEMES,
   changeBrightness,
@@ -164,6 +164,22 @@ Docker          : ${"* ".repeat(5)}
 export const useCommandParser = () => {
   const dispatch = useDispatch();
   const settings = useSelector((state) => state.rootReducer.settings);
+  const playIntRef = useRef(null);
+  const [frame, setFrame] = useState(0);
+
+  const setTimer = () => {
+    playIntRef.current = setInterval(() => {
+      setFrame((frameValue) => frameValue + 1);
+    }, 1000);
+  };
+
+  const getFrame = () => {
+    return outputs.play[frame];
+  };
+
+  const removeTimer = () => {
+    clearInterval(playIntRef);
+  };
 
   const commandParser = (text, history, setHistory, cmdIdx, setCmdIdx) => {
     const textLower = text?.toLowerCase().trim().split(/\s+/);
@@ -185,13 +201,7 @@ export const useCommandParser = () => {
 
       case commands.play:
         const idx = history.length;
-        for (const element of outputs.play) {
-          setTimeout(() => {
-            let newHistory = history;
-            newHistory[idx + 1] = { command: commands.play, output: element };
-            setHistory(newHistory);
-          }, 500);
-        }
+
         break;
 
       case commands.theme:

@@ -494,7 +494,7 @@ export const Vcr = () => {
     }, 1000);
     inputRef.current.focus();
 
-    setFontsize(Math.min(Math.max(parseInt(window.innerWidth / 60), 8), 15));
+    setFontsize(Math.min(Math.max(parseInt(window.innerWidth / 60), 8), 24));
   }, [settings]);
 
   // loading initial site state
