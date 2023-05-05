@@ -1,17 +1,17 @@
 {
   "files": {
-    "main.css": "/TermiNator/static/css/main.b788beeb.css",
-    "main.js": "/TermiNator/static/js/main.605bfb4f.js",
-    "static/media/PrintChar21.ttf": "/TermiNator/static/media/PrintChar21.d7220b17ee9ec1e7cfcc.ttf",
-    "static/media/PetMe.ttf": "/TermiNator/static/media/PetMe.5ae53bf5ce59772b7e6d.ttf",
-    "static/media/PxPlus_IBM_VGA8.ttf": "/TermiNator/static/media/PxPlus_IBM_VGA8.1be88ad1c7635bd70aee.ttf",
-    "static/media/ProggyTiny.ttf": "/TermiNator/static/media/ProggyTiny.9302a069f9248ad9a75b.ttf",
-    "index.html": "/TermiNator/index.html",
-    "main.b788beeb.css.map": "/TermiNator/static/css/main.b788beeb.css.map",
-    "main.605bfb4f.js.map": "/TermiNator/static/js/main.605bfb4f.js.map"
+    "main.css": "/static/css/main.8ff6781f.css",
+    "main.js": "/static/js/main.812bec0e.js",
+    "static/media/PrintChar21.ttf": "/static/media/PrintChar21.d7220b17ee9ec1e7cfcc.ttf",
+    "static/media/PetMe.ttf": "/static/media/PetMe.5ae53bf5ce59772b7e6d.ttf",
+    "static/media/PxPlus_IBM_VGA8.ttf": "/static/media/PxPlus_IBM_VGA8.1be88ad1c7635bd70aee.ttf",
+    "static/media/ProggyTiny.ttf": "/static/media/ProggyTiny.9302a069f9248ad9a75b.ttf",
+    "index.html": "/index.html",
+    "main.8ff6781f.css.map": "/static/css/main.8ff6781f.css.map",
+    "main.812bec0e.js.map": "/static/js/main.812bec0e.js.map"
   },
   "entrypoints": [
-    "static/css/main.b788beeb.css",
-    "static/js/main.605bfb4f.js"
+    "static/css/main.8ff6781f.css",
+    "static/js/main.812bec0e.js"
   ]
 }
