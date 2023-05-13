@@ -11,7 +11,7 @@ const initialState = {
   baseShadowSize: 25,
   primarySize: 12,
   fontFamity: "PetMe",
-  activeTheme: "amber",
+  activeTheme: "steelblue",
   lineHeightMult: 1.5,
 
   amber: {
@@ -41,7 +41,7 @@ const initialState = {
     txtGlow1: "rgba(197, 242, 249, 0.8)",
     txtGlow2: "rgba(197, 242, 249, 0.6)",
     contrast: 200,
-    brightness: 200,
+    brightness: 120,
   },
 
   custom: {
